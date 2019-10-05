@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from check_mktcaps import do_check
 from chuck_jokes import get_random_chuck_joke
 
+from settings import TOKEN
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
