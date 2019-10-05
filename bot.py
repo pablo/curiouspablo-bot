@@ -48,6 +48,11 @@ def mati(bot, update):
     global MATI_QUOTES
     update.message.reply_text(random.choice(MATI_QUOTES))
 
+SHOULD_JAVIER_REPLY_ANSWERS = []
+def should_javier_reply(bot, update):
+    global SHOULD_JAVIER_REPLY_ANSWERS
+    update.message.reply_text(random.choice(SHOULD_JAVIER_REPLY_ANSWERS))
+
 def help(bot, update):
     """Send a message when the command /help is issued."""
     update.message.reply_text('Help!')
@@ -84,6 +89,7 @@ def main():
     dp.add_handler(CommandHandler("chuck", chuck_joke))
     dp.add_handler(CommandHandler("potro", potro))
     dp.add_handler(CommandHandler("mati", mati))
+    dp.add_handler(CommandHandler("should_javier_reply", should_javier_reply))
     dp.add_handler(CommandHandler("help", help))
 
     # on noncommand i.e message - echo the message on Telegram
@@ -120,9 +126,10 @@ def load_quote(fname):
 
 
 def load_quotes():
-    global POTRO_QUOTES, MATI_QUOTES
+    global POTRO_QUOTES, MATI_QUOTES, SHOULD_JAVIER_REPLY_ANSWERS
     POTRO_QUOTES = load_quote("potro_quotes.txt")
     MATI_QUOTES = load_quote("mati_quotes.txt")
+    SHOULD_JAVIER_REPLY_ANSWERS = load_quote("should_javier_reply_answers.txt")
 
 if __name__ == '__main__':
     load_quotes()
