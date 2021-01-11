@@ -2,7 +2,7 @@
 import random
 from datetime import datetime, timedelta
 
-from check_mktcaps import do_check
+from check_mktcaps import do_check, do_check_crypto
 from chuck_jokes import get_random_chuck_joke
 
 from settings import TOKEN
@@ -19,9 +19,12 @@ logger = logging.getLogger(__name__)
 last_check = datetime.now()
 last_result = ""
 
+last_check_crypto = datetime.now()
+last_result_crypto = ""
+
 # Define a few command handlers. These usually take the two arguments bot and
 # update. Error handlers also receive the raised TelegramError object in error.
-def top10(bot, update):
+def top10(update, bot):
     # check top10 by market cap
     global  last_result, last_check
     now = datetime.now()
@@ -30,36 +33,47 @@ def top10(bot, update):
         last_result = do_check()
         last_check = now
 
-    update.message.reply_text("```\n" + last_result + "```", parse_mode="Markdown")
+    update.message.reply_text("Here you go, *you're welcolme*\n```\n" + last_result + "```", parse_mode="Markdown")
+
+def crypto(update, bot):
+    # check top10 by market cap
+    global  last_result_crypto, last_check_crypto
+    now = datetime.now()
+    if last_result_crypto == '' or (now - last_check_crypto) > timedelta(minutes=15):
+        update.message.reply_text('Esperá que. Voy a ver qué dicen mis fuentes del INTERNET sobre el BITCOÑO...')
+        last_result_crypto = do_check_crypto()
+        last_check_crypto = now
+
+    update.message.reply_text("Here you go, you're welcome:\n```\n" + last_result_crypto + "```", parse_mode="Markdown")
 
 
-def answer_cacho(bot, update):
+def answer_cacho(update, bot):
     update.message.reply_text("*RIGHT!*", parse_mode="Markdown")
 
-def chuck_joke(bot, update):
+def chuck_joke(update, bot):
     update.message.reply_text(get_random_chuck_joke())
 
 POTRO_QUOTES = []
-def potro(bot, update):
+def potro(update, bot):
     global POTRO_QUOTES
     update.message.reply_text(random.choice(POTRO_QUOTES))
 
 MATI_QUOTES = []
-def mati(bot, update):
+def mati(update, bot):
     global MATI_QUOTES
     update.message.reply_text(random.choice(MATI_QUOTES))
 
 SHOULD_JAVIER_REPLY_ANSWERS = []
-def should_javier_reply(bot, update):
+def should_javier_reply(update, bot):
     global SHOULD_JAVIER_REPLY_ANSWERS
     update.message.reply_text(random.choice(SHOULD_JAVIER_REPLY_ANSWERS))
 
-def help(bot, update):
+def help(update, bot):
     """Send a message when the command /help is issued."""
     update.message.reply_text('Help!')
 
 
-def echo(bot, update):
+def echo(update, bot):
     """Echo the user message."""
     print(update.effective_user)
     if not update.effective_user.is_bot and 'potro'.casefold() in update.message.text.casefold():
@@ -71,7 +85,7 @@ def echo(bot, update):
     print(f"Got message from {update.effective_user.username} --> [{update.message.text}]")
 
 
-def error(bot, update, error):
+def error(update, bot, error):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, error)
 
@@ -86,6 +100,7 @@ def main():
 
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("top10", top10))
+    dp.add_handler(CommandHandler("crypto", crypto))
     dp.add_handler(CommandHandler("answer_caxo", answer_cacho))
     dp.add_handler(CommandHandler("chuck", chuck_joke))
     dp.add_handler(CommandHandler("potro", potro))
