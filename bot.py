@@ -143,9 +143,9 @@ def load_quote(fname):
 
 def load_quotes():
     global POTRO_QUOTES, MATI_QUOTES, SHOULD_JAVIER_REPLY_ANSWERS
-    POTRO_QUOTES = load_quote("potro_quotes.txt")
-    MATI_QUOTES = load_quote("mati_quotes.txt")
-    SHOULD_JAVIER_REPLY_ANSWERS = load_quote("should_javier_reply_answers.txt")
+    POTRO_QUOTES = load_quote("data/potro_quotes.txt")
+    MATI_QUOTES = load_quote("data/mati_quotes.txt")
+    SHOULD_JAVIER_REPLY_ANSWERS = load_quote("data/should_javier_reply_answers.txt")
 
 if __name__ == '__main__':
     load_quotes()
