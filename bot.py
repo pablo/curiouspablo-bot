@@ -28,24 +28,31 @@ def top10(update, bot):
     # check top10 by market cap
     global  last_result, last_check
     now = datetime.now()
+    wait_msg = None
     if last_result == '' or (now - last_check) > timedelta(minutes=15):
-        update.message.reply_text('Esperá que. Voy a ver qué dicen mis fuentes del INTERNET...')
+        wait_msg = update.message.reply_text('Esperá que. Voy a ver qué dicen mis fuentes del INTERNET...')
         last_result = do_check()
         last_check = now
-
-    update.message.reply_text("Here you go, *you're welcolme*\n```\n" + last_result + "```", parse_mode="Markdown")
+    text_msg = "Here you go, *you're welcolme*\n```\n" + last_result + "```"
+    if wait_msg is not None:
+        wait_msg.edit_text(text_msg, parse_mode="Markdown")
+    else:
+        update.message.reply_text(text_msg, parse_mode="Markdown")
 
 def crypto(update, bot):
     # check top10 by market cap
     global  last_result_crypto, last_check_crypto
     now = datetime.now()
+    wait_msg = None
     if last_result_crypto == '' or (now - last_check_crypto) > timedelta(minutes=15):
-        update.message.reply_text('Esperá que. Voy a ver qué dicen mis fuentes del INTERNET sobre el BITCOÑO...')
-        last_result_crypto = do_check_crypto()
+        wait_msg = update.message.reply_text('Esperá que. Voy a ver qué dicen mis fuentes del INTERNET sobre el BITCOÑO...')
+        last_result_crypto = "" # do_check_crypto()
         last_check_crypto = now
-
-    update.message.reply_text("Here you go, you're welcome:\n```\n" + last_result_crypto + "```", parse_mode="Markdown")
-
+    text_msg = "Here you go, you're welcome:\n```\n" + last_result_crypto + "```"
+    if wait_msg is not None:
+        wait_msg.edit_text(text_msg, parse_mode="Markdown")
+    else:
+        update.message.reply_text(text_msg, parse_mode="Markdown")
 
 def answer_cacho(update, bot):
     update.message.reply_text("*RIGHT!*", parse_mode="Markdown")
