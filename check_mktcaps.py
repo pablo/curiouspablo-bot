@@ -6,8 +6,11 @@ from settings import IEXAPIS_API_KEY, COINMARKETCAP_API_KEY
 
 SYMBOLS = ['AAPL', 'GOOG', 'MSFT', 'AMZN', 'META', 'ORCL', 'IBM', 'INTC', 'NFLX', 'AMD', 'UBER', 'TSLA', 'NVDA']
 
-#CRYPTO_SYMBOLS = ['BTCUSD', 'ETHUSD','XLMUSD', 'DASHUSD']
-CRYPTO_SYMBOLS = ['BTCUSD', 'ETHUSD']
+CRYPTO_SYMBOLS = [
+    'BTC',
+    'ETH',
+    'XLM'
+]
 
 api_key = IEXAPIS_API_KEY
 
@@ -34,8 +37,8 @@ def do_check_symbols():
     return r.json()
 
 
-def do_check_crypto_stellar():
-    url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?slug=stellar"
+def do_check_crypto(symbols):
+    url = f"https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol={','.join(symbols)}"
     headers = {
         "X-CMC_PRO_API_KEY": COINMARKETCAP_API_KEY
     }
@@ -43,23 +46,12 @@ def do_check_crypto_stellar():
     return r.json()
 
 
-def do_check_crypto():
-    vals = []
-    for symbol in CRYPTO_SYMBOLS:
-        vals.append(requests.get(f'https://cloud.iexapis.com/v1/crypto/{symbol}/price?token={api_key}').json())
+def do_check_cryptos():
+    vals = do_check_crypto(CRYPTO_SYMBOLS)
 
-    print("GOT VALS")
-
-    print(vals)
     res = {
-        x['symbol']: float(x['price']) for x in vals
+        k: float(v['quote']['USD']['price']) for k, v in vals['data'].items()
     }
-
-    try:
-        stellar = do_check_crypto_stellar()
-        res['XLMUSD'] = stellar['data']['512']['quote']['USD']['price']
-    except Exception as e:
-        print("Can't get STELLAR value: " + str(e))
 
     print(res)
     sorted_x = sorted(res.items(), key=operator.itemgetter(1), reverse=True)
@@ -75,7 +67,7 @@ def do_check_crypto():
 
 
 #if __name__ == '__main__':
-#    s = do_check_crypto()
+#    s = do_check_cryptos()
 #    print(json.dumps(s))
     #for sym in s:
     #    if 'XLM' in sym['symbol']:
