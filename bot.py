@@ -2,7 +2,7 @@
 import random
 from datetime import datetime, timedelta
 
-from check_mktcaps import do_check, do_check_crypto
+from check_mktcaps import do_check, do_check_cryptos
 from chuck_jokes import get_random_chuck_joke
 
 from settings import TOKEN
@@ -46,7 +46,7 @@ def crypto(update, bot):
     wait_msg = None
     if last_result_crypto == '' or (now - last_check_crypto) > timedelta(minutes=15):
         wait_msg = update.message.reply_text('Esperá que. Voy a ver qué dicen mis fuentes del INTERNET sobre el BITCOÑO...')
-        last_result_crypto = do_check_crypto()
+        last_result_crypto = do_check_cryptos()
         last_check_crypto = now
     text_msg = "Here you go, you're welcome:\n```\n" + last_result_crypto + "```"
     if wait_msg is not None:
