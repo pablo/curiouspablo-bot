@@ -26,7 +26,7 @@ def do_check():
     pos = 1
     r = ""
     for stock, mkt_value in sorted_x:
-        r += f"{pos:02}.- {stock:5} ===> {mkt_value:>15,}\n"
+        r += f"{pos:02}.- {stock:5} ===> {mkt_value:>18,}\n"
         pos += 1
 
     return r
@@ -60,7 +60,7 @@ def do_check_cryptos():
     pos = 1
     r = ""
     for stock, mkt_value in sorted_x:
-        r += f"{pos:02}.- {stock:8} ===> {mkt_value:>15.4f}\n"
+        r += f"{pos:02}.- {stock:3} ===> {mkt_value:>5.4f}\n"
         pos += 1
 
     return r

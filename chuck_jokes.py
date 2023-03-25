@@ -1,6 +1,6 @@
 import requests
 
-RANDOM_JOKE_URL="http://api.icndb.com/jokes/random"
+RANDOM_JOKE_URL="https://api.chucknorris.io/jokes/random"
 
 def get_random_chuck_joke():
     try:
