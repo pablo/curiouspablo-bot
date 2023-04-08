@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 import random
+import os
 from datetime import datetime, timedelta
 
 from check_mktcaps import do_check, do_check_cryptos
 from chuck_jokes import get_random_chuck_joke
 
-from settings import TOKEN
+from settings import TOKEN, GABBIE_DIR
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
@@ -79,6 +80,16 @@ def help(update, bot):
     """Send a message when the command /help is issued."""
     update.message.reply_text('Help!')
 
+def gabbie(update, bot):
+    """Send a random Gabbie pic"""
+    update.message.reply_text('Buscando una foto de Gabbie en EL INTERNET...')
+
+    files = os.listdir(GABBIE_DIR)
+
+    gabie_pic = random.choice(files)
+
+    # TODO: pollo, agregar código para enviar la foto por el bot de TELEGRAM
+
 
 def echo(update, bot):
     """Echo the user message."""
@@ -114,6 +125,7 @@ def main():
     dp.add_handler(CommandHandler("mati", mati))
     dp.add_handler(CommandHandler("should_javier_reply", should_javier_reply))
     dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("gabbie", gabbie))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
