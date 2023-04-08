@@ -40,6 +40,15 @@ def top10(update, bot):
     else:
         update.message.reply_text(text_msg, parse_mode="Markdown")
 
+
+def send_image(update, photo):
+    """
+    photo (str | file object | bytes | pathlib.Path | telegram.PhotoSize) –
+        Photo to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one. To upload a file, you can either pass a file object (e.g. open("filename", "rb")), the file contents as bytes or the path of the file (as string or pathlib.Path object). In the latter case, the file contents will either be read as bytes or the file path will be passed to Telegram, depending on the local_mode setting. Lastly you can pass an existing telegram.PhotoSize object to send.
+    """
+    update.message.reply_photo(photo=photo)
+
+
 def crypto(update, bot):
     # check top10 by market cap
     global  last_result_crypto, last_check_crypto
@@ -80,6 +89,7 @@ def help(update, bot):
     """Send a message when the command /help is issued."""
     update.message.reply_text('Help!')
 
+
 def gabbie(update, bot):
     """Send a random Gabbie pic"""
     update.message.reply_text('Buscando una foto de Gabbie en EL INTERNET...')
@@ -89,6 +99,8 @@ def gabbie(update, bot):
     gabie_pic = random.choice(files)
 
     # TODO: pollo, agregar código para enviar la foto por el bot de TELEGRAM
+    with open(gabie_pic, 'rb') as f:
+        send_image(update, f)
 
 
 def echo(update, bot):
