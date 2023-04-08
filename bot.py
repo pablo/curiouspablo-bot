@@ -8,7 +8,7 @@ from chuck_jokes import get_random_chuck_joke
 
 from settings import TOKEN, GABBIE_DIR
 
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram.ext import Updater, CommandHandler, MessageHandler
 import logging
 
 # Enable logging
@@ -138,9 +138,6 @@ def main():
     dp.add_handler(CommandHandler("should_javier_reply", should_javier_reply))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("gabbie", gabbie))
-
-    # on noncommand i.e message - echo the message on Telegram
-    dp.add_handler(MessageHandler(Filters.text, echo))
 
     # log all errors
     dp.add_error_handler(error)
