@@ -99,7 +99,7 @@ def gabbie(update, bot):
     gabie_pic = random.choice(files)
 
     # TODO: pollo, agregar código para enviar la foto por el bot de TELEGRAM
-    with open(gabie_pic, 'rb') as f:
+    with open(GABBIE_DIR + "/" + gabie_pic, 'rb') as f:
         send_image(update, f)
 
 
