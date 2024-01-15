@@ -7,8 +7,8 @@ WORKDIR /bot
 
 # Install requirements
 COPY requirements.txt /bot
-RUN pip install --upgrade pip
-RUN pip install -r /bot/requirements.txt
+RUN pip -q install --upgrade pip
+RUN pip -q install -r /bot/requirements.txt
 
 # Copy application
 COPY . .
