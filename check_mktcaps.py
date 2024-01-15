@@ -2,7 +2,7 @@ import requests
 import operator
 import json
 
-from settings import IEXAPIS_API_KEY, COINMARKETCAP_API_KEY
+from settings import IEXAPIS_API_KEY, COINMARKETCAP_API_KEY, ALPHAVANTAGE_API_KEY, FINNHUB_API_KEY
 
 SYMBOLS = ['AAPL', 'GOOG', 'MSFT', 'AMZN', 'META', 'ORCL', 'IBM', 'INTC', 'NFLX', 'AMD', 'UBER', 'TSLA', 'NVDA']
 
@@ -13,11 +13,14 @@ CRYPTO_SYMBOLS = [
 ]
 
 api_key = IEXAPIS_API_KEY
+alphavantage_api_key = ALPHAVANTAGE_API_KEY
+finnhub_api_key = FINNHUB_API_KEY
 
-def do_check():
+def do_check_iexapis():
     vals = []
     for symbol in SYMBOLS:
-        vals.append(requests.get(f'https://cloud.iexapis.com/v1/stock/{symbol}/quote?token={api_key}').json())
+        r = requests.get(f'https://cloud.iexapis.com/v1/stock/{symbol}/quote?token={api_key}')
+        vals.append(r.json())
     res = {
         x['symbol']: x['marketCap'] for x in vals
     }
@@ -26,7 +29,23 @@ def do_check():
     pos = 1
     r = ""
     for stock, mkt_value in sorted_x:
-        r += f"{pos:02}.- {stock:5} ===> {mkt_value:>18,}\n"
+        r += f"{pos:02}.- {stock:5} ===> {mkt_value:>18,0}\n"
+        pos += 1
+
+def do_check():
+    vals = []
+    for symbol in SYMBOLS:
+        r = requests.get(f'https://finnhub.io/api/v1/stock/profile2?symbol={symbol}&token={finnhub_api_key}')
+        vals.append(r.json())
+    res = {
+        x['ticker']: 1000000*x['marketCapitalization'] for x in vals
+    }
+    sorted_x = sorted(res.items(), key=operator.itemgetter(1), reverse=True)
+
+    pos = 1
+    r = ""
+    for stock, mkt_value in sorted_x:
+        r += f"{pos:02}.- {stock:5} ===> {mkt_value:>20,.2f}\n"
         pos += 1
 
     return r
@@ -66,10 +85,6 @@ def do_check_cryptos():
     return r
 
 
-#if __name__ == '__main__':
-#    s = do_check_cryptos()
-#    print(json.dumps(s))
-    #for sym in s:
-    #    if 'XLM' in sym['symbol']:
-    #        print(f"{sym['symbol']} -> {sym['name']}")
-    #print(do_check_crypto())
+if __name__ == '__main__':
+    s = do_check()
+    print(s)
