@@ -32,6 +32,18 @@ def do_check_iexapis():
         r += f"{pos:02}.- {stock:5} ===> {mkt_value:>18,0}\n"
         pos += 1
 
+
+def format_value(mkt_value: float) -> str:
+    TN = 1000000000000
+    BN = 1000000000
+    if mkt_value > TN:
+        return f"{mkt_value/TN:>8,.3f} T"
+    elif mkt_value > BN:
+        return f"{mkt_value/BN:>8,.3f} B"
+    else:
+        return f"{mkt_value:>8,.3f} M\n"
+
+
 def do_check():
     vals = []
     for symbol in SYMBOLS:
@@ -45,7 +57,7 @@ def do_check():
     pos = 1
     r = ""
     for stock, mkt_value in sorted_x:
-        r += f"{pos:02}.- {stock:5} ===> {mkt_value:>20,.2f}\n"
+        r += f"{pos:02}.- {stock:5} ===> {format_value(mkt_value)}\n"
         pos += 1
 
     return r
