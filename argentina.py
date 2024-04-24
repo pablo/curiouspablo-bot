@@ -3,7 +3,7 @@ TOP_10 = [
     "El Diego",
     "Bilardo",
     "Charly García",
-    "Flaco Spinneta"
+    "Flaco Spinneta",
     "El Gato 🐈‍⬛ Gaudio",
     "Willy Villas",
     "Bianchi",
