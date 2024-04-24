@@ -3,6 +3,7 @@ import random
 import os
 from datetime import datetime, timedelta
 
+from argentina import top10arg
 from check_mktcaps import do_check, do_check_cryptos
 from chuck_jokes import get_random_chuck_joke
 
@@ -129,6 +130,7 @@ def main():
     dp = updater.dispatcher
 
     # on different commands - answer in Telegram
+    dp.add_handler(CommandHandler("top10arg", top10arg))
     dp.add_handler(CommandHandler("top10", top10))
     dp.add_handler(CommandHandler("crypto", crypto))
     dp.add_handler(CommandHandler("answer_caxo", answer_cacho))
