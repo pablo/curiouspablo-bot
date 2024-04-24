@@ -22,5 +22,5 @@ TOP_10 = [
     "Ceratti",
 ]
 def top10arg(update, bot):
-    text_msg = "```" + "\n".join([f"{i:02}) {x}" for i, x in enumerate(TOP_10, 1)]) + "```"
+    text_msg = "```\n" + "\n".join([f"{i:02}) {x}" for i, x in enumerate(TOP_10, 1)]) + "```"
     update.message.reply_text(text_msg, parse_mode="Markdown")
