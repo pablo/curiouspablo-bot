@@ -9,7 +9,8 @@ SYMBOLS = ['AAPL', 'GOOG', 'MSFT', 'AMZN', 'META', 'ORCL', 'IBM', 'INTC', 'NFLX'
 CRYPTO_SYMBOLS = [
     'BTC',
     'ETH',
-    'XLM'
+    'XLM',
+    'SOL'
 ]
 
 api_key = IEXAPIS_API_KEY

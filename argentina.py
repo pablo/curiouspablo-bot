@@ -5,6 +5,7 @@ TOP_10 = [
     "Charly García",
     "El Flaco Spinneta",
     "El Gato 🐈‍⬛ Gaudio",
+    "La Negra Sosa",
     "Willy Villas",
     "Bianchi",
     "El Negro Olmedo",
@@ -17,7 +18,6 @@ TOP_10 = [
     "Juan Martín Del Potro",
     "Monzón",
     "Susana Giménez",
-    "El Flaco Traverso",
     "David Nalbandián",
     "Ceratti",
 ]
