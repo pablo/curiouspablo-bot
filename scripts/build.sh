@@ -1,6 +1,8 @@
 #!/bin/bash
 
-IMG_NAME=docker.roshka.com/pablo/curious-pablo
+VERSION=0.0.4
 
-docker build -t $IMG_NAME ..
+IMG_NAME=docker.roshka.com/pablo/curious-pablo:$VERSION
+
+docker build --platform linux/amd64 -t $IMG_NAME ..
 docker push $IMG_NAME

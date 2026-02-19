@@ -1,4 +1,4 @@
-FROM python:3.11-bullseye AS base
+FROM python:3.11-bookworm AS base
 
 # Maintainer
 LABEL maintainer="Pablo Santa Cruz <pablo@roshka.com.py>"
