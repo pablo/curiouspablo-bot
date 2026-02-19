@@ -7,7 +7,7 @@ from argentina import top10arg
 from check_mktcaps import do_check, do_check_cryptos
 from chuck_jokes import get_random_chuck_joke
 
-from settings import TOKEN, GABBIE_DIR
+from settings import TOKEN, GABBIE_DIR, PICS_DIR
 
 from telegram.ext import Updater, CommandHandler, MessageHandler
 import logging
@@ -90,6 +90,12 @@ def help(update, bot):
     """Send a message when the command /help is issued."""
     update.message.reply_text('Help!')
 
+def baguetillo(update, bot):
+    """Send a message when the command /baguetillo is issued."""
+    update.message.reply_text('Baguetillo!')
+    with open(PICS_DIR + "/baguetillo.jpg", 'rb') as f:
+        send_image(update, f)
+
 
 def gabbie(update, bot):
     """Send a random Gabbie pic"""
@@ -139,6 +145,7 @@ def main():
     dp.add_handler(CommandHandler("mati", mati))
     dp.add_handler(CommandHandler("should_javier_reply", should_javier_reply))
     dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("baguetillo", baguetillo))
     dp.add_handler(CommandHandler("gabbie", gabbie))
 
     # log all errors

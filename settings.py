@@ -6,6 +6,8 @@ FINNHUB_API_KEY="INSERT-YOUR-API-KEY-HERE-OR-BETTER-IN-LOCAL_SETTINGS.PY"
 
 GABBIE_DIR="data/gabbie"
 
+PICS_DIR="data/pics"
+
 try:
     from local_settings import *
 except ImportError:
